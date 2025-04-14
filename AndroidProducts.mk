@@ -9,4 +9,6 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/twrp_adt3.mk
 
 COMMON_LUNCH_CHOICES := \
-       twrp_adt3-eng
+    twrp_adt3-user \
+    twrp_adt3-userdebug \
+    twrp_adt3-eng

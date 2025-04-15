@@ -115,7 +115,6 @@ PLATFORM_VERSION := 16.1.0
 # Vendor_boot recovery ramdisk
 TARGET_COPY_OUT_SYSTEM := system
 TARGET_COPY_OUT_SYSTEM_EXT := system_ext
-TARGET_COPY_OUT_PRODUCT := product
 TARGET_COPY_OUT_ODM := odm
 TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
 TARGET_USES_MKE2FS := true

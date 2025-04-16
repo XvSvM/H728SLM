@@ -110,6 +110,11 @@ BOARD_SUPPRESS_SECURE_ERASE := true
 TARGET_NO_RECOVERY := true
 BOARD_VNDK_VERSION := current
 
+# Kernel
+TARGET_KERNEL_ARCH := arm64
+BOARD_RAMDISK_USE_LZ4 := true
+TARGET_KERNEL_HEADER_ARCH := arm64
+
 
 
 # Hack: prevent anti rollback

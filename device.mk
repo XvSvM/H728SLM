@@ -6,6 +6,13 @@
 #
 
 LOCAL_PATH := device/askey/adt3
+
+# VNDK
+PRODUCT_TARGET_VNDK_VERSION := 34
+
+# API level
+PRODUCT_SHIPPING_API_LEVEL := 34
+
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \

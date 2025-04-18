@@ -12,4 +12,4 @@ COMMON_LUNCH_CHOICES := \
     askey_adt3-user \
     askey_adt3-userdebug \
     askey_adt3-eng \
-    twrp_adt3-eng
+    

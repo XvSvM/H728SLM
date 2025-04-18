@@ -1,20 +1,23 @@
 #
-# Copyright (C) 2022 The TWRP Open Source Project
+# Copyright (C) 2023 The Android Open Source Project
+# Copyright (C) 2023 SebaUbuntu's TWRP device tree generator
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# SPDX-License-Identifier: Apache-2.0
 #
 
 DEVICE_PATH := device/askey/adt3
+
+# For building with minimal manifest
+ALLOW_MISSING_DEPENDENCIES := true
+
+# A/B
+AB_OTA_UPDATER := true
+AB_OTA_PARTITIONS += \
+    system_dlkm \
+    system \
+    vendor_dlkm \
+    vendor \
+    product
 
 # Architecture
 TARGET_ARCH := arm64
@@ -31,146 +34,157 @@ TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
 TARGET_2ND_CPU_VARIANT_RUNTIME := generic
 
-# A/B
-AB_OTA_UPDATER := true
-AB_OTA_PARTITIONS += \
-    product \
-    vendor_dlkm \
-    system_dlkm \
-    vendor \
-    system
-BOARD_USES_RECOVERY_AS_BOOT := true
+# Assert
+TARGET_OTA_ASSERT_DEVICE := ASKEY-ADT3
 
-# Power
-ENABLE_CPUSETS := true
-ENABLE_SCHEDBOOST := true
+# Board Boot Header
+# Switch to version 3 since A14 update, moving recovery resources to vendor_boot
+BOARD_BOOT_HEADER_VERSION := 3
+
+# Board Default Values
+# Switch to --vendor_cmdline since header v3
+BOARD_VENDOR_CMDLINE := loop.max_part=4, mmcblk.perdev_minors=16, firmware_class.path=/vendor/etc/firmware, bootconfig
+# From 2048, switch to 4096 since header v3
+BOARD_PAGE_SIZE := 4096
+BOARD_KERNEL_BASE := 0x40078000
+BOARD_KERNEL_OFFSET := 0x00008000
+BOARD_RAMDISK_OFFSET := 0x03388000
+BOARD_TAGS_OFFSET := 0xfff88100
+BOARD_DTB_OFFSET := 0x03288000
+#BOARD_MKBOOTIMG_ARGS += --vendor_cmdline $(BOARD_VENDOR_CMDLINE)
+BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_PAGE_SIZE) --board ""
+BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
+#BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_TAGS_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
+BOARD_MKBOOTIMG_ARGS += --dtb_offset $(BOARD_DTB_OFFSET)
+
+# Board - type/size ?
+BOARD_HAS_LARGE_FILESYSTEM := true
+BOARD_USES_SYSTEM_DLKMIMAGE := true
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := exdroid
 TARGET_NO_BOOTLOADER := true
+TARGET_USES_UEFI := true
 
-# Build Hack
+# Build Rules
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
-
-# Building with minimal manifest
-ALLOW_MISSING_DEPENDENCIES := true
 
 # Crypto
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_CRYPTO_FBE := true
-BOARD_USES_METADATA_PARTITION := true
 TW_INCLUDE_FBE_METADATA_DECRYPT := true
-TW_USE_FSCRYPT_POLICY := 2
-PLATFORM_VERSION := 14
-PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
-PLATFORM_SECURITY_PATCH := 2099-12-31
-BOOT_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
-VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
+TW_PREPARE_DATA_MEDIA_EARLY := true
 
-# Kernel
-TARGET_KERNEL_ARCH := arm64
-BOARD_RAMDISK_USE_LZ4 := true
-TARGET_KERNEL_HEADER_ARCH := arm64
+# Debug
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
 
-TARGET_NO_KERNEL := true
-BOARD_KERNEL_SEPARATED_DTBO := true
+# Display
+TARGET_SCREEN_DENSITY := 240
 
-# Kernel - prebuilt
-TARGET_FORCE_PREBUILT_KERNEL := true
-ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
+# DTB - prebuilt
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
 BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
-BOARD_INCLUDE_DTB_IN_BOOTIMG := 
-endif
 
+# Kernel
+TARGET_NO_KERNEL := true
+# Just defining it, to avoid unncessary error while building...
+BOARD_KERNEL_IMAGE_NAME := Image
 
-BOARD_VENDOR_BASE := 0x40078000
-BOARD_PAGE_SIZE := 2048
-BOARD_KERNEL_OFFSET := 0x00008000
-BOARD_RAMDISK_OFFSET := 0x03388000
-BOARD_BOOT_HEADER_VERSION := 4
-BOARD_DTB_SIZE := 176040
-BOARD_DTB_OFFSET :=  0x03288000
-BOARD_HEADER_SIZE := 2128
-BOARD_KERNEL_CMDLINE := loop.max_part=4 mmcblk.perdev_minors=16 firmware_class.path=/vendor/etc/firmware bootconfig
+# Kernel - source
+TARGET_KERNEL_CONFIG := adt3_defconfig
+TARGET_KERNEL_SOURCE := kernel/askey/adt3
 
-#BOARD_MKBOOTIMG_ARGS += --vendor_cmdline $(BOARD_VENDOR_CMDLINE)
-BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_PAGE_SIZE)
-BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
-BOARD_MKBOOTIMG_ARGS += --dtb_offset $(BOARD_DTB_OFFSET)
+# Metadata
+BOARD_USES_METADATA_PARTITION := true
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432
-BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 33554432
-BOARD_HAS_LARGE_FILESYSTEM := true
-BOARD_SYSTEMIMAGE_PARTITION_TYPE := ext4
-BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
-TARGET_COPY_OUT_VENDOR := vendor
-BOARD_SUPER_PARTITION_SIZE := 9126805504 # TODO: Fix hardcoded value
+# Define vendor_boot image size, as we will we moving recovery resource to it
+BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := $(BOARD_BOOTIMAGE_PARTITION_SIZE)
+# TODO: Fix hardcoded value
+BOARD_SUPER_PARTITION_SIZE := 9126805504
 BOARD_SUPER_PARTITION_GROUPS := askey_dynamic_partitions
-BOARD_ASKEY_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
+BOARD_ASKEY_DYNAMIC_PARTITIONS_PARTITION_LIST := system system system_dlkm vendor vendor vendor_dlkm product product
+# TODO: Fix hardcoded value
+BOARD_ASKEY_DYNAMIC_PARTITIONS_SIZE := 9122611200
 
+# Partitions - file type
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := erofs
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
-TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
-BOARD_USES_VENDOR_DLKMIMAGE := true
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := erofs
+BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := erofs
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := erofs
+BOARD_SYSTEM_DLKMIMAGE_FILE_SYSTEM_TYPE := ext4
 
 # Platform
 TARGET_BOARD_PLATFORM := diana
 
-
 # Recovery
 TARGET_NO_RECOVERY := true
-BOARD_HAS_LARGE_FILESYSTEM := true
-BOARD_HAS_NO_SELECT_BUTTON := true
+TARGET_RECOVERY_PIXEL_FORMAT := ARGB_8888
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
+TARGET_USES_MKE2FS := true
+
+# Recovery - Ramdisk
+# Since moving recovery resources to vendor_boot, ramdisk compression type became lz4-l from gzip
+BOARD_RAMDISK_USE_LZ4 := true
+
+# Recovery - sdcard ?
+RECOVERY_SDCARD_ON_DATA := true
+
+# SAR
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 BOARD_SUPPRESS_SECURE_ERASE := true
-TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 
-# Screen density
-# TARGET_SCREEN_DENSITY := 240
-
-# Treble
-BOARD_VNDK_VERSION := current
-
-# Vendor_boot recovery ramdisk
-BOARD_USES_RECOVERY_AS_BOOT := 
-BOARD_USES_GENERIC_KERNEL_IMAGE := true
-BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
-BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := 
-BOARD_MOVE_GSI_AVB_KEYS_TO_VENDOR_BOOT := 
-TW_LOAD_VENDOR_BOOT_MODULES := true
+# SPL
+PLATFORM_SECURITY_PATCH := 2099-12-31
+VENDOR_SECURITY_PATCH := 2099-12-31
+PLATFORM_VERSION := 99.87.36
+PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
+BOARD_AVB_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
+BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 
-TW_INCLUDE_REPACKTOOLS := true
-
-# Fastbootd
-TW_INCLUDE_FASTBOOTD := true
-
-# Debug
-TARGET_USES_LOGD := true
-TWRP_INCLUDE_LOGCAT := true
-
-
-
+# TWRP Configuration
 # TWRP Configuration
 TW_THEME := portrait_hdpi
 TW_EXTRA_LANGUAGES := false
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
-TW_DEVICE_VERSION := M98
+TW_DEVICE_VERSION := X96Qproplus
 TW_NO_SCREEN_TIMEOUT := true
 TW_EXCLUDE_TZDATA := true
 TW_EXCLUDE_NANO := true
 TW_EXCLUDE_BASH := true
 TW_EXCLUDE_PYTHON := true
 
+# Vendor Boot
+# Making sure recovery build don't have kernel in it--well, no kernel at all in tree anyway... LOL!
+BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true
+# We are now moving to vendor_boot, hmmm, wait, really?
+BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
+
+# Vendor Modules
+TW_LOAD_VENDOR_MODULES := true
+TW_LOAD_VENDOR_BOOT_MODULES := true
+TW_LOAD_VENDOR_MODULES_EXCLUDE_GKI := true
+
+# Workaround for copy_out error
+TARGET_COPY_OUT_VENDOR := vendor
+TARGET_COPY_OUT_SYSTEM_DLKM := system_dlkm
+TARGET_COPY_OUT_PRODUCT := product
+TARGET_COPY_OUT_SYSTEM_EXT := system_ext

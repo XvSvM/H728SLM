@@ -11,4 +11,5 @@ PRODUCT_MAKEFILES := \
 COMMON_LUNCH_CHOICES := \
     twrp_adt3-user \
     twrp_adt3-userdebug \
-    twrp_adt3-eng
+    twrp_adt3-eng \
+    

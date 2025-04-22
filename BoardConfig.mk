@@ -27,7 +27,7 @@ TARGET_SCREEN_DENSITY := 240
 
 # Kernel
 BOARD_VENDOR_CMDLINE := loop.max_part=4 mmcblk.perdev_minors=16 firmware_class.path=/vendor/etc/firmware bootconfig
-BOARD_VENDOR_BASE := 0x40078000
+BOARD_KERNEL := 0x40078000
 BOARD_NAME := arm64
 BOARD_PAGE_SIZE := 2048
 BOARD_KERNEL_OFFSET := 0x00008000

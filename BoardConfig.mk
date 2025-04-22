@@ -67,7 +67,7 @@ TARGET_COPY_OUT_PRODUCT := product
 # Recovery
 TARGET_NO_RECOVERY := true
 TARGET_RECOVERY_PIXEL_FORMAT := ARGB_8888
-TARGET_RECOVERY_FSTAB := $(BASE_DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
+
 
 # Image settings
 TARGET_NO_KERNEL := true

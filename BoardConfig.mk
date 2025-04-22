@@ -1,5 +1,5 @@
 
-DEVICE_PATH := device/askey/$(PRODUCT_DEVICE)
+DEVICE_PATH := device/askey/adt3
 
 AB_OTA_UPDATER := true
 
@@ -20,12 +20,10 @@ TARGET_CPU_VARIANT_RUNTIME := cortex-a55
 # Assert
 TARGET_OTA_ASSERT_DEVICE := ADT-3
 
-# Hardware
-BOARD_USES_MTK_HARDWARE := true
 
 # Platform
 PRODUCT_PLATFORM := homlet
-TARGET_BOARD_PLATFORM := $(PRODUCT_PLATFORM)
+TARGET_BOARD_PLATFORM := diana
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := exdroid
@@ -45,15 +43,8 @@ BOARD_SUPER_PARTITION_SIZE := 9126805504
 # Dynamic Partition
 BOARD_SUPER_PARTITION_GROUPS := askey_dynamic_partitions
 BOARD_ASKEY_SIZE := 9122611200
-BOARD_ASKEY_PARTITION_LIST := \
-    system \
-    system \
-    system_dlkm \
-    vendor vendor \
-    vendor_dlkm \ 
-    product \ 
-    product \
-   
+BOARD_ASKEY_DYNAMIC_PARTITIONS_PARTITION_LIST := system system system_dlkm vendor vendor vendor_dlkm product product
+      
 # File System
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_SYSTEMIMAGE_PARTITION_TYPE := ext4
@@ -84,7 +75,7 @@ BOARD_KERNEL_BASE := 0x40078000
 BOARD_RAMDISK_OFFSET := 0x03388000
 BOARD_KERNEL_OFFSET := 0x00008000
 BOARD_TAGS_OFFSET := 0xfff88100
-BOARD_DTB_SIZE := $(stat -L -c %s $(TARGET_PREBUILT_DTB) )
+BOARD_DTB_SIZE := 176221
 BOARD_DTB_OFFSET := 0x03288000
 BOARD_HEADER_SIZE := 2128
 

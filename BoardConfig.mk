@@ -2,6 +2,12 @@
 DEVICE_PATH := device/askey/adt3
 
 AB_OTA_UPDATER := true
+AB_OTA_PARTITIONS += \
+    system_dlkm \
+    system \
+    vendor_dlkm \
+    vendor \
+    product
 
 ALLOW_MISSING_DEPENDENCIES := true
 BUILD_BROKEN_DUP_RULES := true

@@ -67,7 +67,7 @@ BOARD_SUPER_PARTITION_GROUPS := askey_dynamic_partitions
 BOARD_ASKEY_DYNAMIC_PARTITIONS_SIZE := 9122611200
 BOARD_ASKEY_DYNAMIC_PARTITIONS_PARTITION_LIST := system system system_dlkm vendor vendor vendor_dlkm product product
 
-BOARD_PARTITION_LIST := $(call to-upper, $(BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST))
+BOARD_PARTITION_LIST := $(call to-upper, $(BOARD_ASKEY_DYNAMIC_PARTITIONS_PARTITION_LIST))
 $(foreach p, $(BOARD_PARTITION_LIST), $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := erofs))
 $(foreach p, $(BOARD_PARTITION_LIST), $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))))
 

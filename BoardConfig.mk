@@ -5,6 +5,7 @@
 #
 
 # Building with minimal manifest
+DEVICE_PATH := device/askey/adt3
 ALLOW_MISSING_DEPENDENCIES := true
 
 # Architecture

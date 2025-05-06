@@ -65,7 +65,8 @@ AB_OTA_PARTITIONS += \
     product
 
 # Verified Boot
-BOARD_AVB_ENABLE := false
+BOARD_AVB_ENABLE := true
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)

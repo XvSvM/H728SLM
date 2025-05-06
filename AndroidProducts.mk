@@ -4,6 +4,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-PRODUCT_MAKEFILES := $(LOCAL_DIR)/twrp_ad3.mk
+PRODUCT_MAKEFILES := $(LOCAL_DIR)/twrp_adt3.mk
 
-COMMON_LUNCH_CHOICES := twrp_ad3-eng
+COMMON_LUNCH_CHOICES := twrp_adt3-eng

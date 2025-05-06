@@ -1,39 +1,16 @@
 #
-# Copyright (C) 2025 The Android Open Source Project
-# Copyright (C) 2025 SebaUbuntu's TWRP device tree generator
+# Copyright (C) 2023 The Android Open Source Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# Inherit from those products. Most specific first.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
+DEVICE_PATH := device/askey/adt3
 
-# Configure core_64_bit_only.mk
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
+# Inherit from device.mk configuration
+$(call inherit-product, $(DEVICE_PATH)/device.mk)
 
-# Configure virtual_ab compression.mk
-$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression.mk)
-
-# Configure emulated_storage.mk
-$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
-
-# Configure twrp common.mk
-$(call inherit-product, vendor/twrp/config/common.mk)
-
-# Inherit from adt3 device
-$(call inherit-product, device/askey/adt3/device.mk)
-
-# SHIPPING API
-PRODUCT_SHIPPING_API_LEVEL := 32
-
-# VNDK API
-PRODUCT_TARGET_VNDK_VERSION := 34
-
-# Dynamic partitions
-PRODUCT_USE_DYNAMIC_PARTITIONS := true
-
-# Soong namespaces
-PRODUCT_SOONG_NAMESPACES += $(DEVICE_PATH)
+# Release name
+PRODUCT_RELEASE_NAME := adt3
 
 PRODUCT_DEVICE := adt3
 PRODUCT_NAME := twrp_adt3
@@ -41,9 +18,5 @@ PRODUCT_BRAND := ADT-3
 PRODUCT_MODEL := ADT-3
 PRODUCT_MANUFACTURER := askey
 
-PRODUCT_GMS_CLIENTID_BASE := android-askey
-
-PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="diana_p1_arm64-userdebug 14 UP1A.231105.001.A1 eng.ubuntu.20250217.194226 release-keys"
-
-BUILD_FINGERPRINT := ADT-3/adt3/adt3:10/QTT1.200116.002.B6/6245789:user/release-keys
+# Assert
+TARGET_OTA_ASSERT_DEVICE := $(PRODUCT_RELEASE_NAME)

@@ -39,6 +39,7 @@ TARGET_KERNEL_CONFIG := adt3_defconfig
 TARGET_KERNEL_SOURCE := kernel/askey/adt3
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 BOARD_MKBOOTIMG_ARGS          += --pagesize $(BOARD_KERNEL_PAGESIZE)
+BOARD_MKBOOTIMG_ARGS += --partition_size $(BOARD_RECOVERYIMAGE_PARTITION_SIZE)
 
 # Kernel - prebuilt
 TARGET_FORCE_PREBUILT_KERNEL := true
@@ -66,7 +67,6 @@ AB_OTA_PARTITIONS += \
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
@@ -81,12 +81,6 @@ BOARD_SUPER_PARTITION_SIZE := 9126805504 # TODO: Fix hardcoded value
 BOARD_SUPER_PARTITION_GROUPS := askey_dynamic_partitions
 BOARD_ASKEY_DYNAMIC_PARTITIONS_PARTITION_LIST := system system system_dlkm vendor vendor vendor_dlkm product product
 BOARD_ASKEY_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
-
-BOARD_AVB_RECOVERY_ADD_HASH_FOOTER_ARGS += \
-    --partition_size $(BOARD_RECOVERYIMAGE_PARTITION_SIZE) \
-    --partition_name recovery \
-    --key $(BOARD_AVB_KEY_PATH) \
-    --algorithm $(BOARD_AVB_ALGORITHM)
 
 
 # File systems

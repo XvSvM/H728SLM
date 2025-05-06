@@ -81,6 +81,12 @@ BOARD_SUPER_PARTITION_GROUPS := askey_dynamic_partitions
 BOARD_ASKEY_DYNAMIC_PARTITIONS_PARTITION_LIST := system system system_dlkm vendor vendor vendor_dlkm product product
 BOARD_ASKEY_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
 
+BOARD_AVB_RECOVERY_ADD_HASH_FOOTER_ARGS += \
+    --partition_size $(BOARD_RECOVERYIMAGE_PARTITION_SIZE) \
+    --partition_name recovery \
+    --key $(BOARD_AVB_KEY_PATH) \
+    --algorithm $(BOARD_AVB_ALGORITHM)
+
 
 # File systems
 TARGET_USERIMAGES_USE_EXT4 := true

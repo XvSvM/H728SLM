@@ -1,35 +1,38 @@
 #
-# Copyright (C) 2025 The Android Open Source Project
-# Copyright (C) 2025 SebaUbuntu's TWRP device tree generator
+# Copyright (C) 2023 The Android Open Source Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
-LOCAL_PATH := device/askey/adt3
-# A/B
-AB_OTA_POSTINSTALL_CONFIG += \
-    RUN_POSTINSTALL_system=true \
-    POSTINSTALL_PATH_system=system/bin/otapreopt_script \
-    FILESYSTEM_TYPE_system=ext4 \
-    POSTINSTALL_OPTIONAL_system=true
+# Configure base.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
-# Boot control HAL
-PRODUCT_PACKAGES += \
+# Configure core_64_bit_only.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
+
+# Configure virtual_ab compression.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression.mk)
+
+# Configure emulated_storage.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
+
+# Configure twrp common.mk
+$(call inherit-product, vendor/twrp/config/common.mk)
+
+    PRODUCT_PACKAGES += \
+    bootctrl.diana.recovery \
     android.hardware.boot@1.0-impl \
     android.hardware.boot@1.0-service
+    
+    
+# SHIPPING API
+PRODUCT_SHIPPING_API_LEVEL := 32
 
-PRODUCT_PACKAGES += \
-    bootctrl.diana
+# VNDK API
+PRODUCT_TARGET_VNDK_VERSION := 34
 
-PRODUCT_PACKAGES += \
-    bootctrl.diana \
-    libgptutils \
-    libz \
-    libcutils
+# Dynamic partitions
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-PRODUCT_PACKAGES += \
-    otapreopt_script \
-    cppreopts.sh \
-    update_engine \
-    update_verifier \
-    update_engine_sideload
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += $(DEVICE_PATH)

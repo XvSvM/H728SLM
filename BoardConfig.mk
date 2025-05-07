@@ -1,12 +1,35 @@
 #
-# Copyright (C) 2023 The Android Open Source Project
+# Copyright (C) 2020 The Android Open Source Project
 #
-# SPDX-License-Identifier: Apache-2.0
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 
-# Building with minimal manifest
 DEVICE_PATH := device/askey/adt3
+
+# For building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES := true
+
+# A/B
+AB_OTA_UPDATER := true
+AB_OTA_PARTITIONS += \
+    system \
+    system_ext \
+    product \
+    vendor \
+    vendor_dlkm \
+    boot \
+    vbmeta
+BOARD_USES_RECOVERY_AS_BOOT :=
 
 # Architecture
 TARGET_ARCH := arm64
@@ -23,38 +46,40 @@ TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
 TARGET_2ND_CPU_VARIANT_RUNTIME := generic
 
-# Power
 ENABLE_CPUSETS := true
 ENABLE_SCHEDBOOST := true
 
 # Bootloader
-PRODUCT_PLATFORM := exdroid
-TARGET_BOOTLOADER_BOARD_NAME := $(PRODUCT_RELEASE_NAME)
+TARGET_BOOTLOADER_BOARD_NAME := exdroid
 TARGET_NO_BOOTLOADER := true
 TARGET_USES_UEFI := true
 
-# Platform
-TARGET_BOARD_PLATFORM := diana
+# DTB
+ifndef BOARD_PREBUILT_DTBOIMAGE
+BOARD_KERNEL_SEPARATED_DTBO := true
+endif
+TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
+ifndef TARGET_PREBUILT_DTB
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+else
+BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
+endif
 
 # Kernel
-TARGET_KERNEL_ARCH            := arm64
-TARGET_KERNEL_HEADER_ARCH     := arm64
-BOARD_KERNEL_IMAGE_NAME       := Image
-BOARD_VENDOR_CMDLINE := loop.max_part=4 mmcblk.perdev_minors=16 firmware_class.path=/vendor/etc/firmware bootconfig
-BOARD_VENDOR_BASE := 0x40078000
-BOARD_PAGE_SIZE := 2048
-BOARD_KERNEL_OFFSET := 0x00008000
+BOARD_BOOT_HEADER_VERSION := 4
+BOARD_KERNEL_BASE := 0x40078000
+BOARD_KERNEL_CMDLINE := loop.max_part=4 mmcblk.perdev_minors=16 firmware_class.path=/vendor/etc/firmware bootconfig
+BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_OFFSET := 0x03388000
-BOARD_TAGS_OFFSET := 0xfff88100
-BOARD_HEADER_VERSION := 4
-BOARD_HEADER_SIZE := 2128
-BOARD_DTB_SIZE := 176040
-BOARD_DTB_OFFSET := 0x03288000
-TARGET_KERNEL_CLANG_COMPILE   := true
-
-BOARD_USES_VENDOR_BOOT := true
-BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
-BOARD_INCLUDE_RECOVERY_RAMDISK_IN_VENDOR_BOOT := true
+BOARD_KERNEL_TAGS_OFFSET := 0xfff88100
+BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
+BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
+BOARD_KERNEL_IMAGE_NAME := Image
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+TARGET_KERNEL_CONFIG := adt3_defconfig
+TARGET_KERNEL_CLANG_COMPILE := true
+TARGET_KERNEL_SOURCE := kernel/askey/adt3
 
 # Kernel - prebuilt
 TARGET_FORCE_PREBUILT_KERNEL := true
@@ -62,110 +87,47 @@ ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
 BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
-BOARD_INCLUDE_DTB_IN_BOOTIMG := 
+BOARD_INCLUDE_DTB_IN_BOOTIMG :=
 endif
 
-BOARD_MKBOOTIMG_ARGS += --vendor_cmdline $(BOARD_VENDOR_CMDLINE)
-BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_PAGE_SIZE) --board ""
-BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_TAGS_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
-BOARD_MKBOOTIMG_ARGS += --dtb_offset $(BOARD_DTB_OFFSET)
+# Partitions
+BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
+BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432
+BOARD_HAS_LARGE_FILESYSTEM := true
+BOARD_SYSTEMIMAGE_PARTITION_TYPE := ext4
+BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+TARGET_COPY_OUT_VENDOR := vendor
+BOARD_SUPER_PARTITION_SIZE := 9126805504 # TODO: Fix hardcoded value
+BOARD_SUPER_PARTITION_GROUPS := askey_dynamic_partitions
+BOARD_ASKEY_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_dlkm system_ext product vendor vendor_dlkm
+BOARD_ASKEY_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
 
-# Ramdisk use lz4
-BOARD_RAMDISK_USE_LZ4 := true
+# Platform
+TARGET_BOARD_PLATFORM := diana
 
-# A/B
-BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true
+# Recovery
+TARGET_RECOVERY_PIXEL_FORMAT := ARGB_8888
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
 
-AB_OTA_UPDATER := true
-AB_OTA_PARTITIONS += \
-    boot \
-    init_boot \
-    vendor_boot \
-    dtbo \
-    vbmeta \
-    vbmeta_system \
-    odm \
-    product \
-    system \
-    system_ext \
-    system_dlkm \
-    vendor \
-    vendor_dlkm
+# Security patch level
+VENDOR_SECURITY_PATCH := 2021-08-01
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 
-# Partitions
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432
-
-# Dynamic Partition
-BOARD_SUPER_PARTITION_SIZE := 9126805504
-BOARD_SUPER_PARTITION_GROUPS := askey_dynamic_partitions
-BOARD_ASKEY_DYNAMIC_PARTITIONS_PARTITION_LIST := odm product system system_ext vendor vendor_dlkm 
-BOARD_ASKEY_DYNAMIC_PARTITIONS_SIZE := 9122611200
-
-BOARD_PARTITION_LIST := $(call to-upper, $(BOARD_ASKEY_DYNAMIC_PARTITIONS_PARTITION_LIST))
-$(foreach p, $(BOARD_PARTITION_LIST), $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := erofs))
-$(foreach p, $(BOARD_PARTITION_LIST), $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))))
-
-BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
-
-# File systems
-TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
-BOARD_USES_SYSTEM_DLKMIMAGE := true
-BOARD_USES_VENDOR_DLKMIMAGE := true
-
-# Recovery
-BOARD_HAS_LARGE_FILESYSTEM := true
-TARGET_RECOVERY_PIXEL_FORMAT := "ARGB_8888"
-
-
-# Crypto
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_CRYPTO_FBE := true
-TW_INCLUDE_FBE_METADATA_DECRYPT := true
-TARGET_PROVIDES_KEYMASTER := true
-BOARD_USES_METADATA_PARTITION := true
-TW_USE_FSCRYPT_POLICY := 2
-PLATFORM_VERSION := 14
-PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
+# Hack: prevent anti rollback
 PLATFORM_SECURITY_PATCH := 2099-12-31
-VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
-BOOT_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
+VENDOR_SECURITY_PATCH := 2099-12-31
+PLATFORM_VERSION := 16.1.0
 
-# Tool
-TW_INCLUDE_REPACKTOOLS := true
-TW_INCLUDE_RESETPROP := true
-TW_INCLUDE_LIBRESETPROP := true
-TW_INCLUDE_LPDUMP := true
-TW_INCLUDE_LPTOOLS := true
-
-# Debug
-TARGET_USES_LOGD := true
-TWRP_INCLUDE_LOGCAT := true
-
-# Fastbootd
-TW_INCLUDE_FASTBOOTD := true
-
-# Other TWRP Configurations
+# TWRP Configuration
 TW_THEME := portrait_hdpi
-RECOVERY_SDCARD_ON_DATA := true
-TARGET_RECOVERY_QCOM_RTC_FIX := true
-TW_EXCLUDE_DEFAULT_USB_INIT := true
-TW_INCLUDE_NTFS_3G := true
-TW_NO_EXFAT_FUSE := true
-TW_USE_TOOLBOX := true
-TARGET_USES_MKE2FS := true
-TW_INCLUDE_FUSE_EXFAT := true
-TW_INCLUDE_FUSE_NTFS := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_EXTRA_LANGUAGES := true
-TW_EXCLUDE_APEX := true
-TW_HAS_EDL_MODE := true
-TW_ENABLE_FS_COMPRESSION := true
-TW_BACKUP_EXCLUSIONS := /data/fonts
-TW_DEVICE_VERSION := DSPG
+TW_SCREEN_BLANK_ON_BOOT := true
+TW_INPUT_BLACKLIST := "hbtp_vm"
+TW_USE_TOOLBOX := true
+TW_INCLUDE_REPACKTOOLS := true

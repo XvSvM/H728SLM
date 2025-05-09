@@ -122,7 +122,7 @@ BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
 
 
 
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)(COMMON_PATH)/recovery/root/system/etc/recovery.fstab
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 
 # Platform
 TARGET_BOARD_PLATFORM := diana

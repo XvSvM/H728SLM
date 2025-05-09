@@ -29,7 +29,6 @@ AB_OTA_PARTITIONS += \
     vendor_dlkm \
     boot \
     vbmeta
-BOARD_USES_RECOVERY_AS_BOOT :=
 
 # Architecture
 TARGET_ARCH := arm64

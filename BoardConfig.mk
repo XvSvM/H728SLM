@@ -62,8 +62,8 @@ BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
 endif
 
 # Kernel
-BOARD_KERNEL_BASE := 0x40078000
-BOARD_KERNEL_CMDLINE := loop.max_part=4 mmcblk.perdev_minors=16 firmware_class.path=/vendor/etc/firmware bootconfig
+BOARD_VENDOR_BASE_BASE := 0x40078000
+BOARD_VENDOR_CMDLINE  := loop.max_part=4 mmcblk.perdev_minors=16 firmware_class.path=/vendor/etc/firmware bootconfig
 BOARD_PAGE_SIZE := 2048
 BOARD_KERNEL_OFFSET := 0x00008000
 BOARD_RAMDISK_OFFSET := 0x03388000

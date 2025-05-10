@@ -22,10 +22,10 @@ ALLOW_MISSING_DEPENDENCIES := true
 # A/B
 AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS += \
-    system_dlkm \
-    system \
-    vendor_dlkm \
     vendor \
+    system \
+    system_dlkm \
+    vendor_dlkm \
     product
 
 # Architecture
@@ -96,7 +96,7 @@ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
 BOARD_SUPER_PARTITION_SIZE := 9126805504 # TODO: Fix hardcoded value
 BOARD_SUPER_PARTITION_GROUPS := askey_dynamic_partitions
-BOARD_ASKEY_DYNAMIC_PARTITIONS_PARTITION_LIST := system system system_dlkm vendor vendor vendor_dlkm product product
+BOARD_ASKEY_DYNAMIC_PARTITIONS_PARTITION_LIST := system system system_dlkm vendor vendor_dlkm product
 BOARD_ASKEY_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
 
 # Recovery
@@ -106,9 +106,6 @@ BOARD_USES_GENERIC_KERNEL_IMAGE := true
 BOARD_BOOT_HEADER_VERSION := 4
 BOARD_INCLUDE_RECOVERY_RAMDISK_IN_VENDOR_BOOT := true
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
-
-
-
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 
 # Platform
@@ -122,9 +119,6 @@ TARGET_USERIMAGES_USE_F2FS := true
 # Security patch level
 VENDOR_SECURITY_PATCH := 2021-08-01
 
-# Verified Boot
-BOARD_AVB_ENABLE := true
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 
 # Hack: prevent anti rollback
 PLATFORM_SECURITY_PATCH := 2099-12-31

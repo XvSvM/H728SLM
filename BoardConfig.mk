@@ -85,7 +85,6 @@ BOARD_RAMDISK_USE_LZ4 := true
 TARGET_KERNEL_CONFIG := adt3_defconfig
 TARGET_KERNEL_SOURCE := kernel/askey/adt3
 BOARD_KERNEL_IMAGE_NAME := Image.lz4
-BOARD_RAMDISK_USE_LZ4 := true
 
 
 

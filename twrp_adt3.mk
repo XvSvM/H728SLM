@@ -1,55 +1,29 @@
 #
-# Copyright 2017 The Android Open Source Project
+# Copyright (C) 2025 The Android Open Source Project
+# Copyright (C) 2025 SebaUbuntu's TWRP device tree generator
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# SPDX-License-Identifier: Apache-2.0
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-#
-# Only the below variable(s) need to be changed!
-#
-# Define hardware platform
-PRODUCT_PLATFORM := generic
 
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-#
-#
-#
-# The below variables will be generated automatically
-#
-#
-# Release name (automatically taken from this file's suffix)
-PRODUCT_RELEASE_NAME := $(lastword $(subst /, ,$(lastword $(subst _, ,$(firstword $(subst ., ,$(MAKEFILE_LIST)))))))
+# Inherit some common Twrp stuff.
+$(call inherit-product, vendor/twrp/config/common.mk)
 
-# Custom vendor used in build tree (automatically taken from this file's prefix)
-CUSTOM_VENDOR := $(lastword $(subst /, ,$(firstword $(subst _, ,$(firstword $(MAKEFILE_LIST))))))
+# Inherit from adt3 device
+$(call inherit-product, device/askey/adt3/device.mk)
 
-# Inherit from our custom product configuration
-$(call inherit-product, vendor/$(CUSTOM_VENDOR)/config/common.mk)
+PRODUCT_DEVICE := adt3
+PRODUCT_NAME := twrp_adt3
+PRODUCT_BRAND := ADT-3
+PRODUCT_MODEL := ADT-3
+PRODUCT_MANUFACTURER := askey
 
-# OEM Info (automatically taken from device tree path)
-BOARD_VENDOR := $(or $(word 2,$(subst /, ,$(firstword $(MAKEFILE_LIST)))),$(value 2))
+PRODUCT_GMS_CLIENTID_BASE := android-askey
 
-## Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := $(PRODUCT_RELEASE_NAME)
-PRODUCT_NAME := $(CUSTOM_VENDOR)_$(PRODUCT_DEVICE)
-PRODUCT_BRAND := $(BOARD_VENDOR)
-PRODUCT_MODEL := $(shell echo $(PRODUCT_BRAND) | tr  '[:lower:]' '[:upper:]')_$(PRODUCT_DEVICE)
-PRODUCT_MANUFACTURER := $(PRODUCT_BRAND)
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    PRIVATE_BUILD_DESC="diana_p1_arm64-userdebug 14 UP1A.231105.001.A1 eng.ubuntu.20250217.194226 release-keys"
 
-# Device path for OEM device tree
-DEVICE_PATH := device/$(PRODUCT_BRAND)/$(PRODUCT_DEVICE)
-
-# Inherit from hardware-specific part of the product configuration
-$(call inherit-product, $(DEVICE_PATH)/device.mk)
+BUILD_FINGERPRINT := ADT-3/adt3/adt3:10/QTT1.200116.002.B6/6245789:user/release-keys

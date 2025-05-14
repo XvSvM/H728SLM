@@ -13,6 +13,12 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_ven
 # Enable project quotas and casefolding for emulated storage without sdcardfs
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
+PRODUCT_PACKAGES += \
+linker.vendor_ramdisk \
+resize2fs.vendor_ramdisk \
+tune2fs.vendor_ramdisk
+# end: vendor_boot
+
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \

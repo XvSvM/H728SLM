@@ -7,12 +7,6 @@
 
 LOCAL_PATH := device/askey/adt3
 
-PRODUCT_PACKAGES += \
-linker.vendor_ramdisk \
-resize2fs.vendor_ramdisk \
-tune2fs.vendor_ramdisk
-# end: vendor_boot
-
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \

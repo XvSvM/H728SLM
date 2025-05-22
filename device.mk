@@ -6,6 +6,7 @@
 #
 
 LOCAL_PATH := device/askey/adt3
+
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
@@ -19,10 +20,7 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-service
 
 PRODUCT_PACKAGES += \
-    bootctrl.diana \
-    libgptutils \
-    libz \
-    libcutils
+    bootctrl.diana 
 
 PRODUCT_PACKAGES += \
     otapreopt_script \

@@ -116,24 +116,18 @@ BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 
 
 # TWRP Configuration
-# TWRP Configuration
-TW_ROTATION := 180
-TARGET_SCREEN_DENSITY := 160 
-TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_HAS_NO_RECOVERY_PARTITION := true
 TW_THEME := portrait_hdpi
 TW_EXTRA_LANGUAGES := false
+TW_NO_SCREEN_TIMEOUT := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_NO_USB_STORAGE := true
 TW_EXCLUDE_MTP := true
 TW_NO_EXFAT := true
 TW_INCLUDE_FB2PNG := false
 TW_EXCLUDE_TZDATA := true
 TW_EXCLUDE_NANO := true
 TW_INCLUDE_DUMLOCK := false
-TW_NO_BATT_PERCENT := true
-TW_NO_CPU_TEMP := true
 TW_INCLUDE_INJECTTWRP := false
 TW_HAS_DOWNLOAD_MODE := false
 TW_NO_HAPTICS := true
@@ -147,3 +141,4 @@ TWRP_INCLUDE_LOGCAT := false
 TW_OEM_BUILD := true
 TW_USE_TOOLBOX := true
 TW_INCLUDE_REPACKTOOLS := true
+

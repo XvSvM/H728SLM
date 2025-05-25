@@ -19,7 +19,6 @@ AB_OTA_PARTITIONS += \
     vendor_dlkm \
     product
 BOARD_USES_RECOVERY_AS_BOOT := false
-TW_HAS_NO_BOOT_PARTITION := true
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
 
 # Architecture

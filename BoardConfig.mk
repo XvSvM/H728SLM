@@ -120,6 +120,9 @@ BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 
 
 # TWRP Configuration
+TW_TARGET_USES_MALI := true
+TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
+TW_MAX_BRIGHTNESS := 255
 TW_HAS_NO_RECOVERY_PARTITION := true
 TW_THEME := portrait_hdpi
 TW_EXTRA_LANGUAGES := false

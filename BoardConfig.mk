@@ -119,8 +119,6 @@ BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 
 
 # TWRP Configuration
-TARGET_RECOVERY_FORCE_PIXEL_FORMAT := "RGB_565"
-TW_BRIGHTNESS_PATH := "/sys/devices/platform/gpioleds/leds/sys_led/brightness"
 TW_HAS_NO_RECOVERY_PARTITION := true
 TW_THEME := portrait_hdpi
 TW_EXTRA_LANGUAGES := false

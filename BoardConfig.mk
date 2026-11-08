@@ -138,6 +138,6 @@ TW_EXCLUDE_TZDATA := true
 TW_EXCLUDE_NANO := true
 TW_EXCLUDE_BASH := true
 TW_EXCLUDE_PYTHON := true
-# Debug (можно выключить после успешной сборки)
+# Debug 
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true

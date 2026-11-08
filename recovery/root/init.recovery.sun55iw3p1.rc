@@ -14,7 +14,7 @@ on early-init
     insmod /dwc3-sunxi-plat.ko
     insmod /sunxi-lradc.ko
     insmod /axp2101-pek.ko
-    # insmod /hdmi20.ko
+    insmod /hdmi20.ko
     insmod /init-input.ko
     insmod /sunxi-direct-gpio.ko
     insmod /ir-rc5-decoder.ko

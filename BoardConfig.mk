@@ -131,52 +131,18 @@ TW_USE_FSCRYPT_POLICY := 1
 # TWRP Configuration
 ########################################
 
-TW_THEME := landscape_hdpi
+# TWRP Configuration
+TW_THEME := portrait_hdpi
 TW_EXTRA_LANGUAGES := false
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
-
-# Storage
-TW_NO_USB_STORAGE := true
-TW_EXCLUDE_MTP := true
-TW_NO_EXFAT := true
-TW_INCLUDE_NTFS_3G := false
-BOARD_HAS_NO_REAL_SDCARD := true
-
-# Features
-TW_INCLUDE_FB2PNG := false
+TW_USE_TOOLBOX := true
+TW_DEVICE_VERSION := X96QPRO+ Allwinner H728
+TW_NO_SCREEN_TIMEOUT := true
 TW_EXCLUDE_TZDATA := true
 TW_EXCLUDE_NANO := true
-TW_INCLUDE_DUMLOCK := false
-TW_INCLUDE_INJECTTWRP := false
-TW_HAS_DOWNLOAD_MODE := false
-TW_NO_HAPTICS := true
-TW_EXCLUDE_TWRPAPP := true
-TW_NO_LEGACY_PROPS := true
-TW_EXCLUDE_SUPERSU := true
-TW_USE_TOOLBOX := true
-TW_INCLUDE_REPACKTOOLS := true
-TW_INCLUDE_RESETPROP := true
-TW_INCLUDE_LIBRESETPROP := true
-TW_INCLUDE_FASTBOOTD := true
-TW_HAS_NO_RECOVERY_PARTITION := true
-TW_INCLUDE_LIBEROFS := true
-TW_PREPARE_DATA_MEDIA := true
-TW_TARGET_USES_MALI := true
-
-# Brightness (раскомментируйте и проверьте путь при необходимости)
-# TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
-# TW_MAX_BRIGHTNESS := 255
-# TW_DEFAULT_BRIGHTNESS := 80
-
-# Crypto / Encryption
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_CRYPTO_FBE := true
-TW_INCLUDE_FBE_METADATA_DECRYPT := true
-BOARD_USES_METADATA_PARTITION := true
-TW_USE_FSCRYPT_POLICY := 1
-TW_CRYPTO_USE_SYSTEM_VOLD := true
-
+TW_EXCLUDE_BASH := true
+TW_EXCLUDE_PYTHON := true
 # Debug (можно выключить после успешной сборки)
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true

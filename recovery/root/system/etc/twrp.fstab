@@ -6,24 +6,24 @@
 /vendor_dlkm     erofs     vendor_dlkm                                         flags=display="Vendor DLKM";logical;slotselect;backup=1;flashimg=1
 /product         erofs     product                                             flags=display="Product";logical;slotselect;backup=1;flashimg=1
 
-# Physical partitions matching real by-name
+# Physical partitions
 /data            f2fs      /dev/block/by-name/userdata                         flags=display="Data";backup=1;flashimg=1
 /metadata        ext4      /dev/block/by-name/metadata                         flags=display="Metadata";backup=1;flashimg=1
-/boot            emmc      /dev/block/by-name/boot_b                           flags=display="Boot";backup=1;flashimg=1;slotselect
-/init_boot       emmc      /dev/block/by-name/init_boot_b                      flags=display="Init Boot";backup=1;flashimg=1;slotselect
-/vendor_boot     emmc      /dev/block/by-name/vendor_boot_b                    flags=display="Vendor Boot";backup=1;flashimg=1;slotselect
-/dtbo            emmc      /dev/block/by-name/dtbo_b                           flags=display="DTBO";backup=1;flashimg=1;slotselect
-/vbmeta          emmc      /dev/block/by-name/vbmeta_b                         flags=display="VBMeta";backup=1;flashimg=1;slotselect
-/vbmeta_system   emmc      /dev/block/by-name/vbmeta_system_b                  flags=display="VBMeta System";backup=1;flashimg=1;slotselect
-/vbmeta_vendor   emmc      /dev/block/by-name/vbmeta_vendor_b                  flags=display="VBMeta Vendor";backup=1;flashimg=1;slotselect
+/boot            emmc      /dev/block/by-name/boot                             flags=display="Boot";backup=1;flashimg=1;slotselect
+/init_boot       emmc      /dev/block/by-name/init_boot                        flags=display="Init Boot";backup=1;flashimg=1;slotselect
+/vendor_boot     emmc      /dev/block/by-name/vendor_boot                      flags=display="Vendor Boot";backup=1;flashimg=1;slotselect
+/dtbo            emmc      /dev/block/by-name/dtbo                             flags=display="DTBO";backup=1;flashimg=1;slotselect
+/vbmeta          emmc      /dev/block/by-name/vbmeta                           flags=display="VBMeta";backup=1;flashimg=1;slotselect
+/vbmeta_system   emmc      /dev/block/by-name/vbmeta_system                    flags=display="VBMeta System";backup=1;flashimg=1;slotselect
+/vbmeta_vendor   emmc      /dev/block/by-name/vbmeta_vendor                    flags=display="VBMeta Vendor";backup=1;flashimg=1;slotselect
 /misc            emmc      /dev/block/by-name/misc                             flags=display="Misc";backup=1;flashimg=1
 /super           emmc      /dev/block/by-name/super                            flags=display="Super";backup=1;flashimg=1
 /persistent      emmc      /dev/block/by-name/frp                              flags=display="FRP";backup=1;flashimg=1
 /oem             vfat      /dev/block/by-name/media_data                       flags=display="OEM / Media Data";backup=1;flashimg=1
 /Reserve0        vfat      /dev/block/by-name/Reserve0                         flags=display="Reserve0";backup=1;flashimg=1
 /treadahead      ext4      /dev/block/by-name/treadahead                       flags=display="Treadahead";backup=1;flashimg=1
-/bootloader      emmc      /dev/block/by-name/bootloader_b                     flags=display="Bootloader";backup=1;flashimg=1;slotselect
-/env             emmc      /dev/block/by-name/env_b                            flags=display="Env";backup=1;flashimg=1;slotselect
+/bootloader      emmc      /dev/block/by-name/bootloader                       flags=display="Bootloader";backup=1;flashimg=1;slotselect
+/env             emmc      /dev/block/by-name/env                              flags=display="Env";backup=1;flashimg=1;slotselect
 
 # Storage
 /external_sd     vfat      /dev/block/mmcblk1p1     /dev/block/mmcblk1         flags=display="MicroSD";storage;wipeingui;removable

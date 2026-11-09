@@ -7,32 +7,32 @@
 
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# Installs gsi keys into ramdisk
+# Installs gsi keys into ramdisk, to boot a developer GSI with verified boot.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
 # vendor_boot as recovery
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk)
 
-# Enable project quotas and casefolding
+# Enable project quotas and casefolding for emulated storage without sdcardfs
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
-# Inherit TWRP common
+# Inherit some common Twrp stuff.
 $(call inherit-product, vendor/twrp/config/common.mk)
 
-# Inherit device
+# Inherit from adt3 device
 $(call inherit-product, device/askey/adt3/device.mk)
 
 PRODUCT_DEVICE := adt3
 PRODUCT_NAME := twrp_adt3
-PRODUCT_BRAND := askey
+PRODUCT_BRAND := ADT-3
 PRODUCT_MODEL := ADT-3
 PRODUCT_MANUFACTURER := askey
 
 PRODUCT_GMS_CLIENTID_BASE := android-askey
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="adt3-userdebug 14 UP1A.231105.001.A1 eng.ubuntu.20250217.194226 release-keys"
+    PRIVATE_BUILD_DESC="diana_p1_arm64-userdebug 14 UP1A.231105.001.A1 eng.ubuntu.20250217.194226 release-keys"
 
-BUILD_FINGERPRINT := ADT-3/adt3/adt3:14/UP1A.231105.001.A1/6245789:user/release-keys
+BUILD_FINGERPRINT := ADT-3/adt3/adt3:10/QTT1.200116.002.B6/6245789:user/release-keys

@@ -8,7 +8,7 @@
 
 # Physical partitions
 /data            f2fs      /dev/block/by-name/userdata                         flags=display="Data";backup=1;flashimg=1
-# /metadata        ext4      /dev/block/by-name/metadata                         flags=display="Metadata";backup=1;flashimg=1
+/metadata        ext4      /dev/block/by-name/metadata                         flags=display="Metadata";backup=1;flashimg=1
 /boot            emmc      /dev/block/by-name/boot                             flags=display="Boot";backup=1;flashimg=1;slotselect
 /init_boot       emmc      /dev/block/by-name/init_boot                        flags=display="Init Boot";backup=1;flashimg=1;slotselect
 /vendor_boot     emmc      /dev/block/by-name/vendor_boot                      flags=display="Vendor Boot";backup=1;flashimg=1;slotselect
@@ -20,10 +20,10 @@
 /super           emmc      /dev/block/by-name/super                            flags=display="Super";backup=1;flashimg=1
 /persistent      emmc      /dev/block/by-name/frp                              flags=display="FRP";backup=1;flashimg=1
 /oem             vfat      /dev/block/by-name/media_data                       flags=display="OEM / Media Data";backup=1;flashimg=1
-# /Reserve0        vfat      /dev/block/by-name/Reserve0                         flags=display="Reserve0";backup=1;flashimg=1
-# /treadahead      ext4      /dev/block/by-name/treadahead                       flags=display="Treadahead";backup=1;flashimg=1
+/Reserve0        vfat      /dev/block/by-name/Reserve0                         flags=display="Reserve0";backup=1;flashimg=1
+/treadahead      ext4      /dev/block/by-name/treadahead                       flags=display="Treadahead";backup=1;flashimg=1
 /bootloader      emmc      /dev/block/by-name/bootloader                       flags=display="Bootloader";backup=1;flashimg=1;slotselect
-# /env             emmc      /dev/block/by-name/env                              flags=display="Env";backup=1;flashimg=1;slotselect
+/env             emmc      /dev/block/by-name/env                              flags=display="Env";backup=1;flashimg=1;slotselect
 
 # Storage
 /external_sd     vfat      /dev/block/mmcblk1p1     /dev/block/mmcblk1         flags=display="MicroSD";storage;wipeingui;removable

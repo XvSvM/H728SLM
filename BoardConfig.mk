@@ -46,6 +46,7 @@ BOARD_VENDOR_CMDLINE := loop.max_part=4 mmcblk.perdev_minors=16 firmware_class.p
 
 # Preserve original DTB
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 
 # Move recovery resources into vendor_boot
 BOARD_USES_RECOVERY_AS_BOOT := false

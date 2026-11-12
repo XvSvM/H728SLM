@@ -10,19 +10,19 @@
 /product         erofs     product                 flags=display=product;logical;slotselect
 
 # User data
-/data            f2fs      /dev/block/by-name/userdata flags=display=data
-/metadata        ext4      /dev/block/by-name/metadata flags=display=metadata
-/treadahead      ext4      /dev/block/by-name/treadahead flags=display=treadahead
+/data            f2fs      /dev/block/by-name/userdata       flags=display=data
+/metadata        ext4      /dev/block/by-name/metadata      flags=display=metadata
+/treadahead      ext4      /dev/block/by-name/treadahead    flags=display=treadahead
 
 # OEM
-/oem             vfat      /dev/block/by-name/media_data flags=display=oem
-/Reserve0        vfat      /dev/block/by-name/Reserve0 flags=display=Reserve0
+/oem             vfat      /dev/block/by-name/media_data    flags=display=oem
+/Reserve0        vfat      /dev/block/by-name/Reserve0      flags=display=Reserve0
 
-# Boot partitions (A/B)
-/boot            emmc      /dev/block/by-name/boot       flags=display=boot;slotselect
-/vendor_boot     emmc      /dev/block/by-name/vendor_boot flags=display=vendor_boot;slotselect
-/init_boot       emmc      /dev/block/by-name/init_boot  flags=display=init_boot;slotselect
-/dtbo            emmc      /dev/block/by-name/dtbo       flags=display=dtbo;slotselect
+# A/B partitions
+/boot            emmc      /dev/block/by-name/boot          flags=display=boot;slotselect
+/vendor_boot     emmc      /dev/block/by-name/vendor_boot   flags=display=vendor_boot;slotselect
+/init_boot       emmc      /dev/block/by-name/init_boot     flags=display=init_boot;slotselect
+/dtbo            emmc      /dev/block/by-name/dtbo          flags=display=dtbo;slotselect
 
 # Other partitions
 /misc            emmc      /dev/block/by-name/misc

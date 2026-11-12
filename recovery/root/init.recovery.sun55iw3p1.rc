@@ -2,26 +2,34 @@
 on early-init
     setprop sys.usb.configfs 1
 
-    # AXP2202 power / USB PHY
+    # AXP2202
     insmod /lib/modules/axp2202_usb_power.ko
 
-    # USB PHY and host controller dependencies
+    # USB PHY
     insmod /sunxi-inno-combophy.ko
     insmod /sunxi-hci.ko
+
+    # USB host controllers
     insmod /ohci-hcd.ko
     insmod /ehci-sunxi.ko
     insmod /ohci-sunxi.ko
 
-    # USB device and host controller
+    # USB device controller
     insmod /sunxi_usb_udc.ko
+
+    # USB host framework
     insmod /sunxi_usbc.ko
+
+    # DWC3
     insmod /dwc3-sunxi-plat.ko
 
-    # Display, input and remote control
+    # Display and input
     insmod /sunxi-lradc.ko
     insmod /hdmi20.ko
     insmod /init-input.ko
     insmod /sunxi-direct-gpio.ko
+
+    # IR remote
     insmod /ir-rc5-decoder.ko
     insmod /ir-nec-decoder.ko
     insmod /sunxi-ir-rx.ko

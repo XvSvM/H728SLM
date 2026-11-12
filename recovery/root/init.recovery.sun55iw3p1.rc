@@ -13,7 +13,6 @@ on early-init
     insmod /phy-sunxi-plat.ko
     insmod /dwc3-sunxi-plat.ko
     insmod /sunxi-lradc.ko
-    insmod /axp2101-pek.ko
     insmod /hdmi20.ko
     insmod /init-input.ko
     insmod /sunxi-direct-gpio.ko

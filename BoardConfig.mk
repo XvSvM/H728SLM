@@ -9,22 +9,6 @@ DEVICE_PATH := device/x96/x96qproplus
 
 ALLOW_MISSING_DEPENDENCIES := true
 
-# A/B partitions
-AB_OTA_UPDATER := true
-AB_OTA_PARTITIONS += \
-    boot \
-    dtbo \
-    init_boot \
-    product \
-    system \
-    system_dlkm \
-    vbmeta \
-    vbmeta_system \
-    vbmeta_vendor \
-    vendor \
-    vendor_boot \
-    vendor_dlkm
-
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
@@ -41,23 +25,31 @@ TARGET_NO_BOOTLOADER := true
 TARGET_SCREEN_DENSITY := 240
 TARGET_RECOVERY_PIXEL_FORMAT := ARGB_8888
 
-# Boot image
+# Boot image v4
 BOARD_BOOT_HEADER_VERSION := 4
-BOARD_KERNEL_BASE := 0x40078000
 BOARD_KERNEL_PAGESIZE := 2048
+BOARD_PAGE_SIZE := 2048
+
+BOARD_KERNEL_BASE := 0x40078000
 BOARD_KERNEL_OFFSET := 0x00008000
 BOARD_RAMDISK_OFFSET := 0x03388000
 BOARD_KERNEL_TAGS_OFFSET := 0xfff88100
 BOARD_DTB_OFFSET := 0x03288000
 
+BOARD_RAMDISK_USE_LZ4 := true
+
+# Vendor boot
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 33554432
-BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
 BOARD_FLASH_BLOCK_SIZE := 131072
 
-BOARD_KERNEL_CMDLINE := loop.max_part=4 mmcblk.perdev_minors=16 firmware_class.path=/vendor/etc/firmware bootconfig
+BOARD_VENDOR_CMDLINE := loop.max_part=4 mmcblk.perdev_minors=16 firmware_class.path=/vendor/etc/firmware bootconfig
 
-# Original stock DTB
+# Preserve original DTB
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
+
+# Move recovery resources into vendor_boot
+BOARD_USES_RECOVERY_AS_BOOT := false
+BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
 
 # Dynamic partitions
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -68,7 +60,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 
-# Platform settings
+# Platform
 OVERRIDE_TARGET_FLATTEN_APEX := true
 
 # TWRP
@@ -77,5 +69,3 @@ TW_EXTRA_LANGUAGES := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_USE_TOOLBOX := true
 TW_INCLUDE_REPACKTOOLS := true
-
-PLATFORM_VERSION := 16.1.0

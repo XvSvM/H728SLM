@@ -1,9 +1,13 @@
+
 #
-# Copyright (C) 2023 The Android Open Source Project
-#
+# Copyright (C) 2026 X96Q Pro+ TWRP
 # SPDX-License-Identifier: Apache-2.0
 #
 
-PRODUCT_MAKEFILES := $(LOCAL_DIR)/twrp_adt3.mk
+PRODUCT_MAKEFILES := \
+    $(LOCAL_DIR)/twrp_x96qproplus.mk
 
-COMMON_LUNCH_CHOICES := twrp_adt3-eng
+COMMON_LUNCH_CHOICES := \
+    twrp_x96qproplus-user \
+    twrp_x96qproplus-userdebug \
+    twrp_x96qproplus-eng

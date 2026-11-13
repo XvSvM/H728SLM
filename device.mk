@@ -17,3 +17,7 @@ PRODUCT_MANUFACTURER := X96
 # Recovery
 PRODUCT_PACKAGES += \
     toybox
+
+# TWRP recovery root files
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/recovery/root,root)

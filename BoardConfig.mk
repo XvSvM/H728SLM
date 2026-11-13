@@ -1,4 +1,3 @@
-
 #
 # X96Q Pro+ - Allwinner H728
 # Board: H728A527-PRO2-AXP717C
@@ -28,6 +27,7 @@ TARGET_RECOVERY_PIXEL_FORMAT := ARGB_8888
 
 # Boot image header v4
 BOARD_BOOT_HEADER_VERSION := 4
+BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_PAGE_SIZE := 2048
 
@@ -46,7 +46,6 @@ BOARD_RAMDISK_USE_LZ4 := true
 # Vendor boot
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 33554432
 BOARD_FLASH_BLOCK_SIZE := 131072
-
 BOARD_VENDOR_CMDLINE := loop.max_part=4 mmcblk.perdev_minors=16 firmware_class.path=/vendor/etc/firmware bootconfig
 
 # Original DTB
@@ -58,6 +57,8 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 # Recovery goes into vendor_boot
 BOARD_USES_RECOVERY_AS_BOOT := false
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
+BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true
 
 # Dynamic partitions
 BOARD_HAS_LARGE_FILESYSTEM := true

@@ -51,6 +51,7 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 # Move recovery resources into vendor_boot
 BOARD_USES_RECOVERY_AS_BOOT := false
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
+BOARD_KERNEL_IMAGE_NAME := Image.lz4
 
 # Dynamic partitions
 BOARD_HAS_LARGE_FILESYSTEM := true

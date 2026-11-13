@@ -1,7 +1,8 @@
 
 #
 # X96Q Pro+ - Allwinner H728
-# H728A527-PRO2-AXP717C
+# Board: H728A527-PRO2-AXP717C
+# TWRP 12.1
 # SPDX-License-Identifier: Apache-2.0
 #
 
@@ -16,7 +17,7 @@ TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_VARIANT := cortex-a55
 TARGET_CPU_VARIANT_RUNTIME := cortex-a55
 
-# Bootloader / platform
+# Device / Platform
 TARGET_BOOTLOADER_BOARD_NAME := H728A527-PRO2-AXP717C
 TARGET_BOARD_PLATFORM := sun55iw3p1
 TARGET_NO_BOOTLOADER := true
@@ -25,7 +26,7 @@ TARGET_NO_BOOTLOADER := true
 TARGET_SCREEN_DENSITY := 240
 TARGET_RECOVERY_PIXEL_FORMAT := ARGB_8888
 
-# Boot image v4
+# Boot image header v4
 BOARD_BOOT_HEADER_VERSION := 4
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_PAGE_SIZE := 2048
@@ -36,6 +37,10 @@ BOARD_RAMDISK_OFFSET := 0x03388000
 BOARD_KERNEL_TAGS_OFFSET := 0xfff88100
 BOARD_DTB_OFFSET := 0x03288000
 
+# Kernel image name required by TWRP build
+BOARD_KERNEL_IMAGE_NAME := Image.lz4
+
+# Ramdisk
 BOARD_RAMDISK_USE_LZ4 := true
 
 # Vendor boot
@@ -44,14 +49,15 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 
 BOARD_VENDOR_CMDLINE := loop.max_part=4 mmcblk.perdev_minors=16 firmware_class.path=/vendor/etc/firmware bootconfig
 
-# Preserve original DTB
+# Original DTB
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
+
+# Recovery fstab
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 
-# Move recovery resources into vendor_boot
+# Recovery goes into vendor_boot
 BOARD_USES_RECOVERY_AS_BOOT := false
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
-BOARD_KERNEL_IMAGE_NAME := Image.lz4
 
 # Dynamic partitions
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -65,7 +71,7 @@ BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 # Platform
 OVERRIDE_TARGET_FLATTEN_APEX := true
 
-# TWRP
+# TWRP settings
 TW_THEME := landscape_hdpi
 TW_EXTRA_LANGUAGES := true
 TW_SCREEN_BLANK_ON_BOOT := true

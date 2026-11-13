@@ -1,7 +1,7 @@
 #
 # X96Q Pro+ - Allwinner H728
 # Board: H728A527-PRO2-AXP717C
-# TWRP 12.1
+# TWRP 12.1 (Vendor Boot)
 # SPDX-License-Identifier: Apache-2.0
 #
 
@@ -9,7 +9,7 @@ DEVICE_PATH := device/x96/x96qproplus
 
 ALLOW_MISSING_DEPENDENCIES := true
 
-# A/B
+# A/B & Vendor Boot Recovery
 AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS += \
     vendor \
@@ -20,6 +20,7 @@ AB_OTA_PARTITIONS += \
 
 BOARD_USES_RECOVERY_AS_BOOT := false
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
+TARGET_NO_RECOVERY := true
 
 # Architecture
 TARGET_ARCH := arm64

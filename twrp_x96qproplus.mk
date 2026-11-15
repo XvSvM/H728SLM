@@ -5,7 +5,10 @@
 
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
+
+# Обязательно для Android 12.1 + vendor_boot v4 + A/B
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 
 # TWRP common configuration
 $(call inherit-product, vendor/twrp/config/common.mk)

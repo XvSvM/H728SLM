@@ -6,8 +6,9 @@
 
 DEVICE_PATH := device/x96/x96qproplus
 
-# Инициализация структуры vendor_ramdisk для Header v4
+# Копирование prebuilt DTB и инициализация vendor_ramdisk для Header v4
 PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/prebuilt/dtb.img:$(PRODUCT_OUT)/dtb.img \
     $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/system/etc/recovery.fstab
 
 # A/B и fastbootd

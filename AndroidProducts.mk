@@ -9,7 +9,5 @@ PRODUCT_MAKEFILES := \
 COMMON_LUNCH_CHOICES := \
     twrp_x96qproplus-ap2a-user \
     twrp_x96qproplus-ap2a-userdebug \
-    twrp_x96qproplus-ap2a-eng \
-    twrp_x96qproplus-trunk_staging-user \
-    twrp_x96qproplus-trunk_staging-userdebug \
-    twrp_x96qproplus-trunk_staging-eng
+    twrp_x96qproplus-ap2a-eng
+

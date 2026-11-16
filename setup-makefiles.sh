@@ -8,7 +8,7 @@
 
 set -e
 
-DEVICE=x96qproplus
+DEVICE=adt3
 VENDOR=askey
 
 # Load extract_utils and do some sanity checks

@@ -1,7 +1,7 @@
 #
 # X96Q Pro+ - Allwinner H728
 # Board: H728A527-PRO2-AXP717C
-# TWRP 12.1 (Vendor Boot)
+# TWRP 14.1 (Vendor Boot)
 # SPDX-License-Identifier: Apache-2.0
 #
 
@@ -146,7 +146,7 @@ TW_INCLUDE_FASTBOOTD := true
 TW_INCLUDE_LIBEROFS := true
 TW_PREPARE_DATA_MEDIA := true
 
-# Crypto / Encryption
+# Crypto / Encryption (отключено для совместимости с twrp-14.1 и экономии места)
 #TW_INCLUDE_CRYPTO := true
 #TW_INCLUDE_CRYPTO_FBE := true
 #TW_INCLUDE_FBE_METADATA_DECRYPT := true
@@ -158,5 +158,6 @@ TW_PREPARE_DATA_MEDIA := true
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
 
-# Гарантированное создание папки vendor_ramdisk до упаковки
+# Гарантированное создание папки vendor_ramdisk и task_profiles.json до упаковки
 $(shell mkdir -p $(PRODUCT_OUT)/vendor_ramdisk)
+$(shell mkdir -p $(PRODUCT_OUT)/system/etc && cp -f system/core/libprocessgroup/profiles/task_profiles.json $(PRODUCT_OUT)/system/etc/task_profiles.json 2>/dev/null || true)

@@ -1,7 +1,7 @@
 #
 # X96Q Pro+ - Allwinner H728
 # Board: H728A527-PRO2-AXP717C
-# TWRP 12.1 (Vendor Boot)
+# TWRP 14.1 (Vendor Boot)
 # SPDX-License-Identifier: Apache-2.0
 #
 
@@ -20,6 +20,8 @@ AB_OTA_PARTITIONS += \
 
 BOARD_USES_RECOVERY_AS_BOOT := false
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
+BOARD_MOVE_GSI_AVB_KEYS_TO_VENDOR_BOOT := true
+BOARD_BUILD_VENDOR_RAMDISK_IMAGE := true
 TARGET_NO_RECOVERY := true
 
 # Architecture
@@ -68,6 +70,7 @@ BOARD_DTB_OFFSET := 0x03288000
 BOARD_DTB_SIZE := 176575
 
 # DTB
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_KERNEL_SEPARATED_DTBO := true
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
 
@@ -77,13 +80,11 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_RAMDISK_USE_LZ4 := true
 BOARD_VENDOR_CMDLINE := loop.max_part=4 mmcblk.perdev_minors=16 firmware_class.path=/vendor/etc/firmware bootconfig
 
-BOARD_MKBOOTIMG_ARGS += --vendor_cmdline "$(BOARD_VENDOR_CMDLINE)"
-BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_PAGE_SIZE) --board "arm64"
-BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
+BOARD_MKBOOTIMG_ARGS := --header_version $(BOARD_BOOT_HEADER_VERSION)
+BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_PAGE_SIZE)
+BOARD_MKBOOTIMG_ARGS += --board "arm64"
 BOARD_MKBOOTIMG_ARGS += --dtb_offset $(BOARD_DTB_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
+BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
 
 # Recovery fstab
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
@@ -145,14 +146,18 @@ TW_INCLUDE_FASTBOOTD := true
 TW_INCLUDE_LIBEROFS := true
 TW_PREPARE_DATA_MEDIA := true
 
-# Crypto / Encryption
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_CRYPTO_FBE := true
-TW_INCLUDE_FBE_METADATA_DECRYPT := true
-BOARD_USES_METADATA_PARTITION := true
-TW_USE_FSCRYPT_POLICY := 1
-TW_CRYPTO_USE_SYSTEM_VOLD := true
+# Crypto / Encryption (отключено для совместимости с twrp-14.1 и экономии места)
+#TW_INCLUDE_CRYPTO := true
+#TW_INCLUDE_CRYPTO_FBE := true
+#TW_INCLUDE_FBE_METADATA_DECRYPT := true
+#BOARD_USES_METADATA_PARTITION := true
+#TW_USE_FSCRYPT_POLICY := 1
+#TW_CRYPTO_USE_SYSTEM_VOLD := true
 
 # Debug
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
+
+# Гарантированное создание папки vendor_ramdisk и task_profiles.json до упаковки
+$(shell mkdir -p $(PRODUCT_OUT)/vendor_ramdisk)
+$(shell mkdir -p $(PRODUCT_OUT)/system/etc && cp -f system/core/libprocessgroup/profiles/task_profiles.json $(PRODUCT_OUT)/system/etc/task_profiles.json 2>/dev/null || true)

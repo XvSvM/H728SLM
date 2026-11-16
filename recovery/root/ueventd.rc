@@ -1,5 +1,0 @@
-# Allwinner H728 framebuffer
-/dev/graphics/fb0       0666    root    root
-
-# Input devices: IR, HDMI remote, USB mouse and keyboard
-/dev/input/event*       0660    root    root

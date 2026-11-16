@@ -27,4 +27,5 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.2-impl.recovery \
     android.hardware.boot@1.2-service \
     fastbootd \
-    toybox
+    toybox \
+    task_profiles.json

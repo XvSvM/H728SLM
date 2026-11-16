@@ -16,11 +16,11 @@ $(call inherit-product, vendor/twrp/config/common.mk)
 $(call inherit-product, device/x96/x96qproplus/device.mk)
 
 # Device identifier
-PRODUCT_DEVICE := adt3
+PRODUCT_DEVICE := x96qproplus
 PRODUCT_NAME := twrp_x96qproplus
 PRODUCT_BRAND := X96
 PRODUCT_MODEL := X96Q Pro+
-PRODUCT_MANUFACTURER := askey
+PRODUCT_MANUFACTURER := X96
 
 PRODUCT_GMS_CLIENTID_BASE := android-askey
 

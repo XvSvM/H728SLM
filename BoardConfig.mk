@@ -1,13 +1,14 @@
 #
-# X96Q Pro+ - Allwinner H728
+# X96Q Pro+ / Allwinner H728
 # TWRP 14.1 (Vendor Boot)
 # SPDX-License-Identifier: Apache-2.0
 #
 
 DEVICE_PATH := device/x96/x96qproplus
+
 ALLOW_MISSING_DEPENDENCIES := true
 
-# ====================== A/B + Vendor Boot (самое важное) ======================
+# A/B + Vendor Boot
 AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS += \
     vendor \
@@ -22,7 +23,7 @@ BOARD_MOVE_GSI_AVB_KEYS_TO_VENDOR_BOOT := true
 BOARD_BUILD_VENDOR_RAMDISK_IMAGE := true
 TARGET_NO_RECOVERY := true
 
-# ====================== Architecture ======================
+# Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
@@ -37,7 +38,7 @@ TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
 TARGET_2ND_CPU_VARIANT_RUNTIME := generic
 
-# ====================== Kernel (prebuilt) ======================
+# Kernel (prebuilt)
 BOARD_BOOT_HEADER_VERSION := 4
 BOARD_KERNEL_BASE := 0x40078000
 BOARD_KERNEL_PAGESIZE := 2048
@@ -63,23 +64,23 @@ BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
 
 BOARD_VENDOR_CMDLINE := loop.max_part=4 mmcblk.perdev_minors=16 firmware_class.path=/vendor/etc/firmware bootconfig
 
-# ====================== Vendor Boot ======================
-BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 33554432   # 32 МБ
+# Vendor Boot
+BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 33554432
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_RAMDISK_USE_LZ4 := true
 
-# ====================== Platform ======================
+# Platform
 TARGET_BOOTLOADER_BOARD_NAME := H728A527-PRO2-AXP717C
 TARGET_BOARD_PLATFORM := sun55iw3p1
 TARGET_NO_BOOTLOADER := true
 
-# ====================== Display ======================
+# Display
 TARGET_SCREEN_DENSITY := 240
-TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"     # попробуй BGRA_8888 / ARGB_8888 / RGBA_8888
+TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 RECOVERY_GRAPHICS_FORCE_USE_LINELENGTH := true
 TW_TARGET_USES_MALI := true
 
-# ====================== Dynamic partitions ======================
+# Dynamic partitions
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_SUPER_PARTITION_SIZE := 3758096384
 BOARD_SUPER_PARTITION_GROUPS := sunxi_dynamic_partitions
@@ -93,21 +94,21 @@ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 TARGET_COPY_OUT_VENDOR := vendor
 
-# ====================== AVB / Security ======================
+# AVB / Security
 BOARD_AVB_ENABLE := true
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 PLATFORM_SECURITY_PATCH := 2099-12-31
 VENDOR_SECURITY_PATCH := 2099-12-31
 PLATFORM_VERSION := 16.1.0
 
-# ====================== TWRP Configuration ======================
+# TWRP Configuration
 TW_THEME := landscape_hdpi
 TW_EXTRA_LANGUAGES := false
-TW_SCREEN_BLANK_ON_BOOT := false          # ОБЯЗАТЕЛЬНО false при зависании на логотипе
+TW_SCREEN_BLANK_ON_BOOT := false
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_HAS_NO_RECOVERY_PARTITION := true
 
-# Экономия места (vendor_boot всего 32 МБ)
+# Size optimization (vendor_boot = 32 MB)
 TW_NO_USB_STORAGE := true
 TW_EXCLUDE_MTP := true
 TW_NO_EXFAT := true
@@ -131,7 +132,7 @@ TW_INCLUDE_FASTBOOTD := true
 TW_INCLUDE_LIBEROFS := true
 TW_PREPARE_DATA_MEDIA := true
 
-# Crypto пока лучше отключить (для стабильности и размера)
+# Crypto disabled for size & stability
 # TW_INCLUDE_CRYPTO := true
 # TW_INCLUDE_CRYPTO_FBE := true
 # TW_INCLUDE_FBE_METADATA_DECRYPT := true

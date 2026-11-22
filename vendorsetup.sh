@@ -1,8 +1,8 @@
+#
+# Copyright (C) 2026 The Android Open Source Project
+# Copyright (C) 2026 SebaUbuntu's TWRP device tree generator
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 
-#!/bin/bash
-
-# X96Q Pro+ - Allwinner H728
-# TWRP device setup
-
-# Lunch choices are registered in AndroidProducts.mk.
-
+# add_lunch_combo is obsolete. Lunch choices are in AndroidProducts.mk

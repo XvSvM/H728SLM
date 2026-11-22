@@ -1,13 +1,14 @@
 #
-# Copyright (C) 2026 X96Q Pro+ TWRP
+# Copyright (C) 2026 The Android Open Source Project
+# Copyright (C) 2026 SebaUbuntu's TWRP device tree generator
+#
 # SPDX-License-Identifier: Apache-2.0
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/twrp_x96qproplus.mk
+    $(LOCAL_DIR)/twrp_adt3.mk
 
 COMMON_LUNCH_CHOICES := \
-    twrp_x96qproplus-ap2a-user \
-    twrp_x96qproplus-ap2a-userdebug \
-    twrp_x96qproplus-ap2a-eng
-
+    twrp_adt3-user \
+    twrp_adt3-userdebug \
+    twrp_adt3-eng

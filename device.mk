@@ -1,30 +1,28 @@
 #
-# X96Q Pro+ - Allwinner H728
-# H728A527-PRO2-AXP717C
+# Copyright (C) 2026 The Android Open Source Project
+# Copyright (C) 2026 SebaUbuntu's TWRP device tree generator
+#
 # SPDX-License-Identifier: Apache-2.0
 #
 
-DEVICE_PATH := device/x96/x96qproplus
+LOCAL_PATH := device/askey/adt3
 
-# Копирование prebuilt DTB и инициализация vendor_ramdisk для Header v4
-PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/prebuilt/dtb.img:$(PRODUCT_OUT)/dtb.img \
-    $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/system/etc/recovery.fstab
-
-# A/B и fastbootd
+# A/B
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
     POSTINSTALL_PATH_system=system/bin/otapreopt_script \
     FILESYSTEM_TYPE_system=ext4 \
     POSTINSTALL_OPTIONAL_system=true
 
+# Boot control HAL
 PRODUCT_PACKAGES += \
+    android.hardware.boot@1.0-impl \
+    android.hardware.boot@1.0-service \
+    bootctrl.diana
+
+PRODUCT_PACKAGES += \
+    otapreopt_script \
+    cppreopts.sh \
     update_engine \
-    update_engine_sideload \
     update_verifier \
-    bootctrl.default \
-    android.hardware.boot@1.2-impl \
-    android.hardware.boot@1.2-impl.recovery \
-    android.hardware.boot@1.2-service \
-    fastbootd \
-    toybox
+    update_engine_sideload

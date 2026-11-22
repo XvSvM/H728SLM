@@ -1,5 +1,6 @@
 on early-init
     setprop sys.usb.configfs 1
+    insmod /axp803_usb_power.ko
     insmod /sunxi-inno-combophy.ko
     insmod /sunxi-hci.ko
     insmod /ehci-sunxi.ko
@@ -7,9 +8,12 @@ on early-init
     insmod /ohci-sunxi.ko
     insmod /sunxi_usb_udc.ko
     insmod /sunxi_usbc.ko
+    insmod /usbserial.ko
+    insmod /usb_wwan.ko
     insmod /phy-sunxi-plat.ko
     insmod /dwc3-sunxi-plat.ko
     insmod /sunxi-lradc.ko
+    insmod /axp2101-pek.ko
     insmod /hdmi20.ko
     insmod /init-input.ko
     insmod /sunxi-direct-gpio.ko

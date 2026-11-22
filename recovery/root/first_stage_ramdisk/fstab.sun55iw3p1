@@ -6,10 +6,8 @@ system                                                 /system      erofs     ro
 system                                                 /system      ext4      ro,barrier=1       wait,first_stage_mount,logical,slotselect
 system_dlkm                                            /system_dlkm ext4      ro                 wait,first_stage_mount,logical,slotselect
 vendor                                                 /vendor      erofs     ro                 wait,first_stage_mount,logical,slotselect
-vendor                                                 /vendor      ext4      ro,barrier=1       wait,first_stage_mount,logical,slotselect
 vendor_dlkm                                            /vendor_dlkm erofs     ro                 wait,first_stage_mount,logical,slotselect
 product                                                /product     erofs     ro                 wait,first_stage_mount,logical,slotselect
-product                                                /product     ext4      ro,barrier=1       wait,first_stage_mount,logical,slotselect
 /dev/block/by-name/userdata                            /data        f2fs     noatime,nosuid,nodev,fastboot,discard,reserve_root=128000,resuid=0,resgid=1065 wait,check,formattable,quota,reservedsize=128M,latemount,checkpoint=fs
 /dev/block/by-name/metadata                            /metadata    ext4     nodev,noatime,nosuid,errors=panic wait,first_stage_mount,formattable,check
 /dev/block/by-name/treadahead                          /treadahead  ext4     nodev,noatime,nosuid,errors=panic wait,first_stage_mount,formattable,check

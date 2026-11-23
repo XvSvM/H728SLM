@@ -1,5 +1,4 @@
 on early-init
-    # Подавляем спам драйвера дисплея sunxi:disp:[ERR] (оставляем только критические ошибки)
     write /proc/sys/kernel/printk "2 4 1 7"
 
     setprop sys.usb.configfs 1
@@ -26,7 +25,6 @@ on early-init
     insmod /sunxi-gpio-ir-recv.ko
 
 on boot
-    # Останавливаем службы батареи, чтобы убрать спам healthd в dmesg
     stop healthd
     stop vendor.health-hal-2-0
     stop vendor.health-hal-2-1
@@ -40,3 +38,9 @@ service console /system/bin/sh
     group root shell log readproc
     seclabel u:r:shell:s0
     setenv HOSTNAME console
+
+service healthd /sbin/healthd -r
+    disabled
+
+service vendor.health-hal-2-0 /vendor/bin/hw/android.hardware.health@2.0-service
+    disabled

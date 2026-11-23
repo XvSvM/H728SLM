@@ -12,7 +12,7 @@
 
 # Physical partitions
 /data            f2fs      /dev/block/by-name/userdata                flags=fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption
-/metadata        ext4      /dev/block/by-name/metadata                flags=display="Metadata";backup=1
+/metadata        emmc      /dev/block/by-name/metadata                flags=display="Metadata";backup=1
 /boot            emmc      /dev/block/by-name/boot                    flags=display="Boot";slotselect;backup=1;flashimg=1
 /vendor_boot     emmc      /dev/block/by-name/vendor_boot             flags=display="Vendor Boot";slotselect;backup=1;flashimg=1
 /misc            emmc      /dev/block/by-name/misc                    flags=display="Misc";backup=1

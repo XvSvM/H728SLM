@@ -1,4 +1,7 @@
 on early-init
+    # Подавляем спам драйвера дисплея sunxi:disp:[ERR] (оставляем только критические ошибки)
+    write /proc/sys/kernel/printk "2 4 1 7"
+
     setprop sys.usb.configfs 1
     insmod /axp803_usb_power.ko
     insmod /sunxi-inno-combophy.ko
@@ -21,6 +24,12 @@ on early-init
     insmod /ir-nec-decoder.ko
     insmod /sunxi-ir-rx.ko
     insmod /sunxi-gpio-ir-recv.ko
+
+on boot
+    # Останавливаем службы батареи, чтобы убрать спам healthd в dmesg
+    stop healthd
+    stop vendor.health-hal-2-0
+    stop vendor.health-hal-2-1
 
 on property:ro.debuggable=1
     start console

@@ -77,7 +77,7 @@ BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
 endif
 
 # Commandline & Offsets
-BOARD_VENDOR_CMDLINE := loop.max_part=4 mmcblk.perdev_minors=16 firmware_class.path=/vendor/etc/firmware bootconfig
+BOARD_VENDOR_CMDLINE := loop.max_part=4 mmcblk.perdev_minors=16 firmware_class.path=/vendor/etc/firmware bootconfig loglevel=2 quiet
 BOARD_KERNEL_BASE := 0x40078000
 BOARD_PAGE_SIZE := 2048
 BOARD_KERNEL_OFFSET := 0x00008000
@@ -142,9 +142,10 @@ BOARD_HAS_NO_REAL_SDCARD := true
 TW_EXCLUDE_SUPERSU := true
 TW_INCLUDE_CRYPTO := false
 TWRP_INCLUDE_LOGCAT := false
-TW_OEM_BUILD := true
+# TW_OEM_BUILD := true
 TW_USE_TOOLBOX := true
 TW_INCLUDE_REPACKTOOLS := true
 TW_INCLUDE_LIBRESETPROP := true
 TW_INCLUDE_RESETPROP := true
 TW_EXCLUDE_APEX := true
+TW_SKIP_ADDITIONAL_FSTAB := true

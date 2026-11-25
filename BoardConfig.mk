@@ -121,7 +121,7 @@ BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 
 # TWRP Configuration
 TW_HAS_NO_RECOVERY_PARTITION := true
-TW_THEME := landscape_xhdpi
+TW_THEME := landscape_hdpi
 TW_EXTRA_LANGUAGES := false
 TW_SCREEN_BLANK_ON_BOOT := false
 TW_INPUT_BLACKLIST := "hbtp_vm"

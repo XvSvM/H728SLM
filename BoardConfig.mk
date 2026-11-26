@@ -115,7 +115,10 @@ BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 # TWRP Configuration
 TW_DEVICE_VERSION := X96Qpro+Allwinner-H728
 TW_HAS_NO_RECOVERY_PARTITION := true
-TW_THEME := landscape_hdpi
+TW_THEME := portrait_hdpi
+TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
+TW_MAX_BRIGHTNESS := 255
+TW_DEFAULT_BRIGHTNESS := 120
 TW_EXTRA_LANGUAGES := false
 TW_SCREEN_BLANK_ON_BOOT := false
 #TW_INPUT_BLACKLIST := "hbtp_vm"
